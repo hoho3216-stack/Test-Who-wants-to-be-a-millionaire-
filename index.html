@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Wants to Be a Millionaire?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Who Wants to Be a Millionaire?</h1>
+            <p class="tagline">Test Your Knowledge and Win Big!</p>
+        </header>
+
+        <main>
+            <!-- Home Screen -->
+            <div id="homeScreen" class="screen active">
+                <div class="home-content">
+                    <h2>Welcome to the Game!</h2>
+                    <p>Answer 15 questions correctly to win $1,000,000!</p>
+                    <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+                    <button onclick="toggleQuestionsPanel()" class="btn btn-secondary">Manage Questions</button>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="gameScreen" class="screen">
+                <div class="game-header">
+                    <div class="prize-ladder">
+                        <span id="currentLevel" class="level">Level: 1</span>
+                        <span id="currentPrize" class="prize">$0</span>
+                    </div>
+                    <div class="lifelines">
+                        <button id="fiftyBtn" class="lifeline" onclick="useFiftyFifty()" title="50/50">50/50</button>
+                        <button id="callBtn" class="lifeline" onclick="useCallFriend()" title="Call a Friend">📞</button>
+                        <button id="audienceBtn" class="lifeline" onclick="useAudiencePoll()" title="Ask Audience">👥</button>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <p id="questionText" class="question"></p>
+                    <div id="optionsContainer" class="options-grid">
+                        <!-- Options will be generated here -->
+                    </div>
+                </div>
+
+                <button onclick="goHome()" class="btn btn-danger">Quit Game</button>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="resultScreen" class="screen">
+                <div class="result-content">
+                    <h2 id="resultTitle"></h2>
+                    <p id="resultMessage"></p>
+                    <p id="finalPrize" class="final-prize"></p>
+                    <button onclick="goHome()" class="btn btn-primary">Play Again</button>
+                </div>
+            </div>
+
+            <!-- Questions Management Panel -->
+            <div id="questionsPanel" class="questions-panel">
+                <div class="panel-content">
+                    <div class="panel-header">
+                        <h2>Manage Questions</h2>
+                        <button onclick="toggleQuestionsPanel()" class="close-btn">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <h3>Instructions:</h3>
+                        <p>Upload a .txt file with questions in the following format:</p>
+                        <pre>Question: What is the capital of France?
+A) London
+B) Paris
+C) Berlin
+D) Madrid
+Correct Answer: B</pre>
+                        <p>Separate each question with a blank line.</p>
+                        
+                        <div class="upload-section">
+                            <input type="file" id="fileInput" accept=".txt" onchange="handleFileUpload(event)">
+                            <button onclick="document.getElementById('fileInput').click()" class="btn btn-primary">Choose File</button>
+                        </div>
+
+                        <div id="fileStatus" class="file-status"></div>
+
+                        <h3>Current Questions: <span id="questionCount">0</span></h3>
+                        <div id="questionsList" class="questions-list">
+                            <!-- Questions will be listed here -->
+                        </div>
+
+                        <button onclick="clearAllQuestions()" class="btn btn-danger">Clear All Questions</button>
+                        <button onclick="toggleQuestionsPanel()" class="btn btn-secondary">Close</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Lifeline Result Modal -->
+        <div id="lifelineModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeLifelineModal()">&times;</span>
+                <h2 id="lifelineTitle"></h2>
+                <p id="lifelineMessage"></p>
+                <button onclick="closeLifelineModal()" class="btn btn-primary">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
